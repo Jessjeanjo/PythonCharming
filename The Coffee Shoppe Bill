@@ -30,11 +30,11 @@ def backwardSlashDesign():
     backwardSlashDesign = '\/'
     print( backwardSlashDesign*NUMBER_OF_SLASHES)
 
-def mainBillDesign():
+def mainBillDesign(x,y):
     '''Creates the design for the main bill'''
-    cupsOfCoffee, numbOfDoughnuts, costOfCoffee, costOfDoughnuts, taxTotal, amountOwed = showBill()
+    cupsOfCoffee, numbOfDoughnuts, costOfCoffee, costOfDoughnuts, taxTotal, amountOwed = showBill(x,y)
     print('\t_%i_ cups of coffee : $_%.2f_'  % (cupsOfCoffee, costOfCoffee ))
-    print('\t     _%i_ doughnuts : $_%.2f_'  % (numbOfDoughnuts, costOfDoughnuts))
+    print('\t        _%i_ doughnuts : $_%.2f_'  % (numbOfDoughnuts, costOfDoughnuts))
     print('\t\t      tax : $_%.2f_' %(taxTotal))
     print('\n\t\t Amount Owed : $__%.2f__' % (amountOwed))
     print('\nThank you for buying local.')
@@ -47,9 +47,8 @@ def getInputs():
     numbOfDoughnuts = int(raw_input('How many doughnuts will you have?'))
     return cupsOfCoffee, numbOfDoughnuts
 
-def showBill():
-          '''Will calculate the Bill'''
-          cupsOfCoffee, numbOfDoughnuts = getInputs()
+def showBill(cupsOfCoffee=0, numbOfDoughnuts=0):
+          '''Will calculate the Bill. Takes two parameters'''
           costOfCoffee = cupsOfCoffee*COFFEE_COST
           costOfDoughnuts = numbOfDoughnuts*DOUGHNUT_COST
           taxTotal = (costOfCoffee + costOfDoughnuts)*TAX_RATE
@@ -60,10 +59,11 @@ def showBill():
 
 '''<---Organizing and Calling my Functions----->'''
 def main():
+    cupsOfCoffee, numbOfDoughnuts = getInputs()
     forwardSlashDesign()
     printNameDesign()
     backwardSlashDesign()
-    mainBillDesign()
+    mainBillDesign(cupsOfCoffee, numbOfDoughnuts)
           
 main()
 
