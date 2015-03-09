@@ -1,0 +1,56 @@
+'''
+
+Programmer: JESSICA JOSEPH
+~~~~~~~~~~~~~~~~~~~~~~~~
+MONEY
+This module deals with money.
+
+
+'''
+#<============GLOBAL CONSTANTS==========>
+CONVERSION = 0.77
+
+#<===============FUNCTIONS===============>
+def printAsUSDollars(amountOfMoney):
+    '''Pretty prints an amount in $9999.99 or USD 9999.99 monetary form
+    rounding up to the next whole penny'''
+    methodOfPrint = int(raw_input("Would you like to print the amount of money you have in USD format? Type 1 for yes, Type 0 for no. "))
+    roundedAmountOfMoney = round(amountOfMoney, 2)
+    '''print('USD %.2f' %(roundedAmountOfMoney)) if methodOfPrint == 1 else print('$%.2f' %(roundedAmountOfMoney))'''
+
+def convertPesosToUSDollars(amountOfPesos):
+    '''Converts US Dollars to Pesos'''
+    conversionToUSD = amountOfPesos*CONVERSION
+    numbOfWholeUSD = int(conversionToUSD)
+    numbOfCoins = (round(conversionToUSD, 2) - numbOfWholeUSD)*100
+    print('You have %i whole US Dollars and %i cents' %(numbOfWholeUSD, numbOfCoins))
+    
+def printAsCoins(amountOfUSDollars):
+    '''Displays the number of coins each denomination would have if the money would converted to US coins'''
+    dollarCoins = amountOfUSDollars - amountOfUSDollars%1
+    dollarCoinRemainder = amountOfUSDollars%1
+    quarterCoins = (dollarCoinRemainder - dollarCoinRemainder%.25)/.25
+    quarterCoinsRemainder = dollarCoinRemainder%.25
+    dimeCoins = (quarterCoinsRemainder - quarterCoinsRemainder%.10)/.10
+    dimeCoinsRemainder = quarterCoinsRemainder%.10
+    nickleCoins = (dimeCoinsRemainder - dimeCoinsRemainder%.05)/.05
+    nickleCoinsRemainder = dimeCoinsRemainder%.05
+    pennyCoins = (nickleCoinsRemainder - nickleCoinsRemainder%.01)/.01
+    pennyCoinsRemainder = nickleCoinsRemainder%.01
+    print('You have %i dollar coins, %i quarters, %i dimes, %i nickles, and %i pennies' %(dollarCoins, quarterCoins, dimeCoins, nickleCoins, pennyCoins))
+
+
+def quantityOfCoins(amountOfUSDollars):
+    '''Returns the amount of coins you will receive'''
+    dollarCoins = amountOfUSDollars - amountOfUSDollars%1
+    dollarCoinRemainder = amountOfUSDollars%1
+    quarterCoins = (dollarCoinRemainder - dollarCoinRemainder%.25)/.25
+    quarterCoinsRemainder = dollarCoinRemainder%.25
+    dimeCoins = (quarterCoinsRemainder - quarterCoinsRemainder%.10)/.10
+    dimeCoinsRemainder = quarterCoinsRemainder%.10
+    nickleCoins = (dimeCoinsRemainder - dimeCoinsRemainder%.05)/.05
+    nickleCoinsRemainder = dimeCoinsRemainder%.05
+    pennyCoins = (nickleCoinsRemainder - nickleCoinsRemainder%.01)/.01
+    pennyCoinsRemainder = nickleCoinsRemainder%.01
+    return (dollarCoins, quarterCoins, dimeCoins, nickleCoins, pennyCoins)
+
