@@ -1,0 +1,81 @@
+#!C:/Python27/python.exe
+'''
+
+Programmer: JESSICA JOSEPH
+Description
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+'''
+
+from __future__ import print_function
+
+#<============IMPORTING============>
+import random
+#<==========GETTING USER INPUTS=======>
+
+def getInput():
+    '''
+        Returns a single character which the user inputs. '''
+    
+    divisorNumb = 1
+    userCharacter = raw_input('Enter a single character: ')
+
+    while len(userCharacter) != 1:
+        userCharacter = raw_input('Sorry, try again:  ')        
+
+    return userCharacter
+        
+#<==========GETTING MIDDLE DIGIT=========>
+
+def getMiddleDigit():
+    '''
+        Returns a randomly generate number between the
+        value of 2 and 7 inclusive. '''
+
+    return random.randint(2, 7)
+
+#<================VALIDITY TESTING=========>
+
+def createValidScope(middleDigit):
+    '''
+        Generates a valid scope (+ and -) 2 based off of the
+        middle digit passed through as a parameter'''
+
+    standardDeviation = 2
+    
+    lowerBound = middleDigit - standardDeviation
+    upperBound = middleDigit + standardDeviation
+    
+    return range(lowerBound, upperBound +1)
+
+def userInputValidity(userInput, middleRange):
+    '''
+        Validates whether the user's input is  within the
+        valid range of the middle digits'''
+    
+    if userInput == '@' or userInput == '%' or userInput == '#':
+        print(userInput)
+    elif int(userInput) in (middleRange):
+        print(userInput)
+    else:
+        print('Sorry your number is not valid')
+
+
+def main():
+    while True:
+        userInput = getInput()
+        middleDig = getMiddleDigit()
+        validRange = createValidScope(middleDig)
+        userInputValidity(userInput, validRange)
+
+   
+
+#<===============CALLING============>
+
+if __name__ == '__main__':
+    main()
