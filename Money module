@@ -1,12 +1,15 @@
 '''
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 Programmer: JESSICA JOSEPH
-~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 MONEY
-This module deals with money.
-
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+This module deals with money
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 '''
+
+from __future__ import print_function
+
 #<============GLOBAL CONSTANTS==========>
 CONVERSION = 0.77
 
