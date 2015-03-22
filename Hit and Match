@@ -1,11 +1,9 @@
 #!C:/Python27/python.exe
 '''
 Programmer: JESSICA JOSEPH
-Description
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The program for a hit and match game.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 HIT AND MATCH
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Compares the cards of a users deck to the
 house's card(the computer) and returns how
 many user cards are in the houses' cards as a
