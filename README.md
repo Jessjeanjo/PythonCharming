@@ -10,6 +10,7 @@ The others are just from an assortment of various sites :)
 These programs range in difficulty from basic projects using just a simple print function to more complex projects
 which require the use of loops, importing files, and/or creating a class.
 
-##Everyday Goal: Be a better programmer than I was yesterday
+###Everyday Goal: Be a better programmer than I was yesterday
 
-<#CODEUP>
+'''
+  CODEUP '''
