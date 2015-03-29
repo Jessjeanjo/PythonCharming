@@ -1,8 +1,11 @@
+#!C:/Python27/python.exe
 '''
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Programmer:JESSICA JOSEPH
-Description: This module has functions that will create the lines of a text flag
-   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A module of functions that will create
+the lines of a text flag
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 '''
 
  
