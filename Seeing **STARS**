@@ -1,0 +1,28 @@
+#!C:/Python27/pyhton.exe
+'''
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Programmer: JESSICA JOSEPH
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Write a program that allows the user
+to choose how many stars they want to see
+and then shows that many stars.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+'''
+from __future__ import print_function
+
+def drawStars(userInput):
+    '''Draws a set of stars on the screen. Takes one parameter'''
+    generator = ''
+    
+    for number in range(userInput):
+        generator += '*'
+
+    print(generator+'\n')
+
+def main():
+    while True:
+        userInput = int(raw_input('How many stars would you like to see?'))
+        drawStars(userInput)
+
+if __name__ =='__main__':
+    main()
