@@ -88,7 +88,7 @@ def surveyPrompt(namE):
     return ratingB
 
 
-'''<--The PRIZE--->'''
+#<=============================THE PRIZE=====================>
 def getPrize(ratE, billTotal):
     '''Retrieves and Displays the prize'''
     if ratE == random.randint(1,1000):
