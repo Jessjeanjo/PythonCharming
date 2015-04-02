@@ -14,7 +14,7 @@ just ignore this output, of course - or be confused by it!).
 from __future__ import print_function
 
 #<====================IMPORTING==================>
-import sys ; import random; import money; import JessicaHW01
+import sys ; import random;
 
 #<================GLOBAL CONSTANTS=============>
 
@@ -31,7 +31,7 @@ def welcomeBanner():
  ----------------------------------------------''')
 
 
-#<-----Getting my Inputs----->
+#<=======================GETTING MY INPUTS==================>
 
 def getInputs():
     '''Retrieves inputs'''
@@ -46,7 +46,7 @@ def getStampAmount():
     stamps6Amount = raw_input('How many 6 cent stamps would you like? ')
     return stamps74Amount, stamps32Amount, stamps6Amount
 
-#<----Calculating the Bill------>
+#<===========================CALCULATING THE BILL===============>
 
 def calBill(stamp74Amnt, stamp32Amnt, stamp6Amnt):
     '''Calculates and Prints the amount of coins given and the their total value'''
@@ -59,21 +59,35 @@ def calBill(stamp74Amnt, stamp32Amnt, stamp6Amnt):
     print('\nThe price of your %i stamps is $ %.2f' %( stampCoinTot, stampTotal))
     return stampTotal
 
-'''<-----------Quantity of Bills------>'''
+#<=======================QUANTITY OF BILLS===================>
+def quantityOfCoins(amountOfUSDollars):
+    '''Returns the amount of coins you will receive'''
+    dollarCoins = amountOfUSDollars - amountOfUSDollars%1
+    dollarCoinRemainder = amountOfUSDollars%1
+    quarterCoins = (dollarCoinRemainder - dollarCoinRemainder%.25)/.25
+    quarterCoinsRemainder = dollarCoinRemainder%.25
+    dimeCoins = (quarterCoinsRemainder - quarterCoinsRemainder%.10)/.10
+    dimeCoinsRemainder = quarterCoinsRemainder%.10
+    nickleCoins = (dimeCoinsRemainder - dimeCoinsRemainder%.05)/.05
+    nickleCoinsRemainder = dimeCoinsRemainder%.05
+    pennyCoins = (nickleCoinsRemainder - nickleCoinsRemainder%.01)/.01
+    pennyCoinsRemainder = nickleCoinsRemainder%.01
+    return (dollarCoins, quarterCoins, dimeCoins, nickleCoins, pennyCoins)
+
 def moneyCal(firstName, lastName, billTotal):
     '''Thanks the User and returns their change in coins. There are three parameters'''
     billToReceive = int(raw_input('\nHow many dollars will you be giving us? '))
     amntToCal = billToReceive-billTotal
     print('\nThank you. Just a moment please...\n\nThanks %s %s, your change is' %(firstName, lastName))
 
-    dollarCoins, quarterCoins, dimeCoins, nickleCoins, pennyCoins = money.quantityOfCoins(amntToCal)
+    dollarCoins, quarterCoins, dimeCoins, nickleCoins, pennyCoins = quantityOfCoins(amntToCal)
     if dollarCoins > 0: print('%i dollar coin(s)' %(dollarCoins))
     if quarterCoins > 0: print('%i quarter(s)' %(quarterCoins))
     if dimeCoins > 0: print('%i dime(s)' %(dimeCoins))
     if nickleCoins > 0: print('%i nickle(s)' %(nickleCoins))
     if pennyCoins > 0: print('%i penny(ies)' %(pennyCoins))
         
-'''<-Taking the Survey, Giving the Prize->'''
+#<===================TAKING THE SURVEY, GIVING THE PRIZE=============>
 
 def surveyPrompt(namE):
     '''Prompts a user to give a rating. There is one parameter.'''
@@ -100,8 +114,8 @@ def getPrize(ratE, billTotal):
     else:
         print('You win 3 cents')
 
-
-def main():
+#<=========================STATISTICS=========================>
+def stampStatisticsRun():
     firstName, lastName = getInputs()
     customerCount = 0
     largestPurchase = 0
@@ -134,6 +148,9 @@ def main():
     print('Smallest Purchase: %.2f' %(smallestPurchase))
     print('Average Purchase: %.2f' %((sumOfPurchases)/customerCount))
     print('Percentage of Same Number of 32 cent stamps with others: %.0f'%((float(sameCoinCount)/float(customerCount))*100))
+    
+def main():
+    stampStatisticsRun()
         
         
         
