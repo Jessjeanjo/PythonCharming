@@ -42,7 +42,7 @@ def doNotBuy():
     
     while notBuyItem != 'done':
         notBuyList.append(notBuyItem)
-        notBuyItem = raw_input('Enter the food items you will NOT buy: ')
+        notBuyItem = raw_input('Enter the food items you will NOT buy: ').lower()
 
     return notBuyList
 
@@ -99,20 +99,40 @@ def groceryMenu():
         menuChoice = raw_input(
     "\nType the corresponding number for your choice. Note: Create the DS's I won-t buy list first\n"
     '1. Add a food item to the shopping list\n'
-    "2. Create the DS's I-won't-buy list\n"
+    "2. Create the Designated Shopper's I-won't-buy list\n"
     '3. Display an Alphabetic list of all avaliable foods\n'
     '4. Quit and print shopping list in alphabetical order\n')
         if menuChoice == '1':
-            groceryLissy = groceryList(notBuyList)
-            sortedGroceryList = sortAndCount(groceryLissy)
+            try:
+              groceryLissy = groceryList(notBuyList)
+              sortedGroceryList = sortAndCount(groceryLissy)
+            except UnboundLocalError :
+              print('\nThe Designated Shopper has not yet created their "I won\'t buy" list'\
+                    '\nPlease createthe Designated Shopper list, FIRST!\n')
+              menuChoice
         elif menuChoice == '2':
             notBuyList = doNotBuy()
         elif menuChoice == '3':
             GROCERY_STORE.sort
             print(GROCERY_STORE)
         else:
-            printGroceryList(sortedGroceryList)
-            return False
+            try:
+              printGroceryList(sortedGroceryList)
+              return False
+            except UnboundLocalError:
+              options = raw_input('\nThere are no items on the shopping list :)'\
+                        '\nDo you want to add items to your list now or just quit?'\
+                        '\nType "finish" to quit and "add" to add: ').lower()
+              if options == 'finish':
+                return False
+              else:
+                try:
+                  groceryLissy = groceryList(notBuyList)
+                  sortedGroceryList = sortAndCount(groceryLissy)
+                except UnboundLocalError :
+                  print('\nThe Designated Shopper has not yet created their "I won\'t buy" list'\
+                    '\nPlease createthe Designated Shopper list, FIRST!\n')
+                  menuChoice
     
 
 def main():
