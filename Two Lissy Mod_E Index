@@ -1,0 +1,31 @@
+'''
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+Created by Jessica Joseph 04 April 2015
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A module with a function that works with list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+'''
+
+from __future__ import print_function
+
+def getIndexElements(listO, listT):
+    '''
+         A function that takes two lists and returns a list of the
+         positions in both lists that have the same value somewhere
+         in the other list'''
+    returnListpairOne = []; returnListpairTwo = []; returnList = []
+    countNumb = -1
+    
+    for numb in listO:
+        countNumb +=1
+        countNumbT = -1
+        if numb in listT:
+            for numbT in listT:
+                countNumbT += 1
+                if numb == numbT:
+                    returnListpairOne.append(countNumb)
+                    if countNumbT not in returnListpairTwo:
+                        returnListpairTwo.append(countNumbT)
+                    
+    returnList.append(returnListpairOne); returnList.append(returnListpairTwo)
+    return returnList
