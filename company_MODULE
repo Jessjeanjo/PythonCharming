@@ -1,0 +1,171 @@
+# Created by Jessica Joseph 2015 05 08
+# Company Module
+''' A Module for the Company class'''
+
+from __future__ import print_function
+from workerRec_MODULE import WorkerRec
+
+WORK_NEG_AMT_ERROR = 2
+DUPL_ACCNT_NUM_ERROR = -7
+ACCNT_NOT_FOUND_ERROR = -5
+
+class Company( object ):
+    '''
+    has company name
+        record dictionary
+    supports hiring workers, changing hourly rate, adding hours worked,
+            getting a file of pay on pay day, and firing workers
+
+    accessor for worker name, hours worked, hourly rate, awarded title
+    mutators for hours worked, hourly rate, and awarded title
+        __str__ formatted:
+            SSN, Hours Worked: [hours worked], Hourly Pay Rate: [hourly pay rate]
+    '''
+
+    def __init__( self, name ):
+        '''data members   assumptions:
+              company name            name is a str
+              worker record           every company starts with an empty dictionary'''
+        self.__companyName = name
+        self.__workers = {}
+
+    def getCompanyName(self):
+        ''' returns the company name'''
+        return self.__companyName
+
+    def __verifyWorkerInRecords( self, accntNum ):
+        ''' returns True when accntNum is valid,
+                    False otherwise
+        '''
+        return accntNum in self.__workers
+
+    def __getWorkerName(self, identifierSSN):
+        ''' returns the worker's name'''
+        return self.__workers[identifierSSN].getWorkerName()
+
+    def hireWorker( self, identifierSSN, workerName):
+        '''
+            creates and adds a worker record
+            returns DUPL_ACCNT_NUM_ERROR if there is already
+            a worker with the same SSN #FRAUD ALERT!!
+        '''
+        if self.__verifyWorkerInRecords(identifierSSN):
+            return DUPL_ACCNT_NUM_ERROR
+        self.__workers[identifierSSN] = WorkerRec(identifierSSN, workerName)
+
+    def __getHoursWorked(self, identifierSSN):
+        ''' returns the hours worked'''
+        return self.__workers[identifierSSN].getHoursWorked()
+
+    def addHoursWorked( self, identifierSSN, hoursWorked):
+        ''' adds hours to a workers record.
+            returns ACCNT_NOT_FOUND_ERROR when SSN not found
+            returns WORK_NEG_AMT_ERROR when the hours worked is negative
+        '''
+
+        if not self.__verifyWorkerInRecords(identifierSSN):
+            return ACCNT_NOT_FOUND_ERROR
+        status = self.__workers[identifierSSN].addHours(hoursWorked)
+        if status == WORK_NEG_AMT_ERROR:
+            return WORK_NEG_AMT_ERROR
+
+    def changeHourlyRate( self, identifierSSN, newRate):
+        ''' returns current balance on success,
+            returns ACCNT_NOT_FOUND_ERROR when accountNumber not found
+        '''
+
+        if not self.__verifyWorkerInRecords(identifierSSN):
+            return ACCNT_NOT_FOUND_ERROR
+
+        status = self.__workers[identifierSSN].changeHourlyRate(newRate)
+
+        if status == WORK_NEG_AMT_ERROR:
+            return WORK_NEG_AMT_ERROR
+
+    def grantNewTitle(self,identifierSSN, newTitle):
+        ''' changes or assigns a worker a new title.
+            returns an account not found error if the account
+            is not on record'''
+        if not self.__verifyWorkerInRecords(identifierSSN):
+            return ACCNT_NOT_FOUND_ERROR
+
+        self.__workers[identifierSSN].changeTitle(newTitle)
+
+
+    def getPaid(self):
+        '''calculates the amount owed to the workers on pay day.
+          Writes the worker's SSN, the workers name and the amount owed to a file.
+          If the worker has an awarded title the awarded title is also noted.
+          Format:
+          Without an awarded title
+          99999999
+          John Doe $000.00
+
+          With an awarded title
+          99999999
+          John Doe $000.00 [Master Worker]
+          '''
+        writingFile = open('companyPayFile.pay', 'w')
+        for workerKey in self.__workers:
+            amountOwed = self.__workers[workerKey].getHoursWorked() * self.__workers[workerKey].getHourlyRate()
+
+            if self.__workers[workerKey].getAwardedTitle() == None:
+                writingString = '%s\n%s $%.2f\n\n' \
+                                %(workerKey, self.__workers[workerKey].getWorkerName(),amountOwed)
+                writingFile.write(writingString)
+                self.__workers[workerKey].resetHoursWorked()
+            else:
+                writingString = '%s\n%s $%.2f [%s]\n\n' \
+                                %(workerKey, self.__workers[workerKey].getWorkerName(),\
+                                  amountOwed,self.__workers[workerKey].getAwardedTitle())
+                writingFile.write(writingString)
+                self.__workers[workerKey].resetHoursWorked()
+
+        writingFile.close()
+
+
+    def fireWorker(self, identifierSSN):
+        ''' pays the worker for the remaining hours, creating a special
+            final pay file.
+            Worker records are not left.'''
+        fileName = self.__workers[identifierSSN].getWorkerName()+'.FINAL.PAY'
+        writingFile = open(fileName, 'w')
+
+        amountOwed = self.__workers[identifierSSN].getHoursWorked() * self.__workers[identifierSSN].getHourlyRate()
+        if self.__workers[identifierSSN].getAwardedTitle() == None:
+                writingString = '%s\n%s $%.2f\n' \
+                                %(identifierSSN, self.__workers[identifierSSN].getWorkerName(),amountOwed)
+                writingFile.write(writingString)
+                self.__workers[identifierSSN].__resetHoursWorked()
+        else:
+                writingString = '%s\n%s $%.2f [%s]\n' \
+                                %(identifierSSN, self.__workers[identifierSSN].getWorkerName(),\
+                                  amountOwed,self.__workers[identifierSSN].getAwardedTitle())
+                writingFile.write(writingString)
+                self.__workers[identifierSSN].resetHoursWorked()
+
+        writingFile.close()
+
+        self.__workers.pop(identifierSSN)
+
+    def __str__( self ):
+        ''' returns str verion
+            format:
+            company's name
+            worker record 1
+            worker record 2
+            worker record 3
+            ...
+			does have final newline
+			does do sort, order is changed
+
+			worker record format
+			SSN, Hours Worked: [hours worked], Hourly Pay Rate: [hourly pay rate]
+
+        '''
+        retStr = self.__companyName + '\n'
+        keys = self.__workers.keys()
+        keys.sort()
+        for key in keys:
+            retStr += str(self.__workers[key]) +'\n'
+        return retStr
