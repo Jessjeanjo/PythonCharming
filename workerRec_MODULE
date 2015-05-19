@@ -1,0 +1,88 @@
+# Created by Jessica Joseph 2015 05 08
+# Worker Rec Module
+''' A Module for the WorkerRec class'''
+
+
+from __future__ import print_function
+
+NEG_ERR_CODE = -1
+
+class WorkerRec(object):
+    '''
+    has worker name
+        SSN (unique indentifier)
+        hours worked
+        hourly rate
+        awarded title
+    supports changing the hourly rate, changing the title, and adding hours worked.
+
+    accessor for worker name, hours worked, hourly rate, and awarded title
+     mutators for hours worked, hourly rate, and awarded title
+        __str__ formatted:
+            SSN, Hours Worked: [hours worked], Hourly Pay Rate: [hourly pay rate]
+    '''
+    def __init__(self, uniqueIdentifier, workerName,  hoursWorked = 0, awardedTitle= None):
+        '''
+        data members   assumptions:
+              unique identifier       SSM is of correct form
+              name                    name is a str
+              hourly pay rate         hourly pay rate is a float
+              hours worked            hours worked is a float; defaulted to 0
+              awarded title           awarded title is defaulted to None
+        '''
+
+        self.__uniqueIdentifier = uniqueIdentifier
+        self.__name = workerName
+        self.__hourlyPayRate = 17.22
+        self.__hoursWorked = hoursWorked
+        self.__awardedTitle =awardedTitle
+
+    def getWorkerName(self):
+        ''' returns worker's name'''
+        return self.__name
+
+    def getHourlyRate(self):
+        ''' returns hourly pay rate'''
+        return self.__hourlyPayRate
+
+    def changeHourlyRate(self, newRate):
+        ''' Changes the worker's hourly pay rate .
+            assumes the new rate is numeric. Returns an error code if
+            the new rate is a negative number.'''
+        if newRate < 0:
+            return NEG_ERR_CODE
+        else:
+            self.__hourlyPayRate = newRate
+
+    def getHoursWorked(self):
+        '''returns hours worked'''
+        if self.__hoursWorked < 0:
+            return NEG_ERR_CODE
+        else:
+            return self.__hoursWorked
+
+    def resetHoursWorked(self):
+        '''resets the hours worked back to 0 '''
+        self.__hoursWorked = 0
+
+    def addHours(self, hoursWorked):
+        '''adds hours to the hours worked.
+            assumes the hours worked is numeric'''
+        self.__hoursWorked += hoursWorked
+
+    def getAwardedTitle(self):
+        ''' returns the worker's awarded title'''
+        return self.__awardedTitle
+
+    def changeTitle(self, newTitle):
+        ''' reassigns a worker's title to the new title passed through.
+            assumes the new title is a str'''
+        self.__awardedTitle = newTitle
+
+
+    def __str__(self):
+        ''' stringify
+            formatted:
+            SSN, Hours Worked: [hours worked], Hourly Pay Rate: [hourly pay rate]
+        '''
+        return ('SSN: %s,Hours Worked: %s,Hourly Pay Rate: %s' %( self.__uniqueIdentifier, self.__hoursWorked, self.__hourlyPayRate))
